@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Route Util Demo</title>
+
+    <style>
+      body {
+        font-family: ui-sans, sans-serif;
+        font-size: 1.05em;
+        line-height: 1.5em;
+        margin: auto;
+        max-width: 70ch;
+        padding: 4rem 1rem;
+        > :first-child {
+          margin-top: 0;
+        }
+        > :last-child {
+          margin-bottom: 0;
+        }
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 2em 0 1rem;
+      }
+      article,
+      blockquote,
+      header,
+      footer,
+      ol,
+      ul,
+      hr,
+      p,
+      pre {
+        margin: 1.5em 0;
+      }
+      *,
+      ::before,
+      ::after {
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Route Util Demo</h1>
+      <nav>
+        <ul style="display: flex; gap: 1rem; list-style-type: none; padding: 0">
+          <li><a href="#/home">Home</a></li>
+          <li><a href="#/about">About</a></li>
+          <li>
+            <a href="#/collections">Collections</a>
+            <ul style="padding: 0; margin: 0; list-style-type: none">
+              <li><a href="#/collections/1">First</a></li>
+              <li><a href="#/collections/2">Second</a></li>
+              <li><a href="#/collections/3">Third</a></li>
+            </ul>
+          </li>
+          <li><a href="#/404">404</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <button onclick="history.back()">Back</button>
+        <button onclick="history.forward()">Forward</button>
+        <button onclick="location = '#/home'">Open "Home" via location</button>
+      </div>
+
+      <hr />
+
+      <output></output>
+    </div>
+  </body>
+
+  <script type="module">
+    import Router from "./src/lib.js";
+
+    function render(html) {
+      const output = document.querySelector("output");
+      output.innerHTML = html;
+    }
+
+    new Router({ startAt: "#/home" })
+      .on("#/home", () => {
+        render("Home");
+      })
+      .on("#/about", () => {
+        render("About");
+      })
+      .on("#/collections", () => {
+        window.location.hash = `#/collections/1`;
+      })
+      .on(/^#\/collections\/(?<id>\w+)$/, ({ params }) => {
+        render("Collection " + JSON.stringify(params));
+      })
+      .fallback(() => {
+        render("Fallback");
+      })
+      .connect();
+  </script>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "@andreasphil/routeutil",
+  "version": "0.0.0",
+  "description": "Bare minimum client-side router",
+  "author": "Andreas Philippi",
+  "license": "MIT",
+  "type": "module",
+  "repository": "https://github.com/andreasphil/routeutil",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/lib.js",
+      "types": "./dist/lib.d.ts"
+    }
+  },
+  "scripts": {
+    "test": "node --test",
+    "test:watch": "node --test --watch",
+    "build": "pnpm build:types && pnpm build:bundle",
+    "build:types": "tsc src/lib.js --declaration --emitDeclarationOnly --allowJS --lib es2023,DOM --target es2022 --outdir dist",
+    "build:bundle": "esbuild src/lib.js --bundle --minify --outdir=dist",
+    "preversion": "pnpm test && pnpm build; git add dist/"
+  },
+  "devDependencies": {
+    "esbuild": "^0.23.0",
+    "jsdom": "^24.1.1",
+    "typescript": "^5.5.4"
+  }
+}
