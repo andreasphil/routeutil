@@ -20,7 +20,7 @@
     "test:watch": "node --test --watch",
     "build": "pnpm build:types && pnpm build:bundle",
     "build:types": "tsc src/lib.js --declaration --emitDeclarationOnly --allowJS --lib es2023,DOM --target es2022 --outdir dist",
-    "build:bundle": "esbuild src/lib.js --bundle --minify --outdir=dist",
+    "build:bundle": "esbuild src/lib.js --bundle --minify --target=es2023 --format=esm --outdir=dist",
     "preversion": "pnpm test && pnpm build; git add dist/"
   },
   "devDependencies": {
