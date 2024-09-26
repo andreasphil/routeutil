@@ -55,6 +55,14 @@ export default class Router {
      * @returns {Router} The router instance for chaining
      */
     fallback(handler: RouteHandler): Router;
+    /**
+     * This handler will be called after any navigation (including when no route
+     * matched).
+     *
+     * @param {RouteHandler} handler
+     * @returns {Router} The router instance for chaining
+     */
+    afterEach(handler: RouteHandler): Router;
     #private;
 }
 /**
