@@ -93,6 +93,9 @@ export default class Router {
   /** @type {RouteHandler | undefined} */
   #fallbackHandler = undefined;
 
+  /** @type {RouteHandler | undefined} */
+  #afterEachHandler = undefined;
+
   /** @type {string | undefined} */
   #startAt = undefined;
 
@@ -158,6 +161,18 @@ export default class Router {
   }
 
   /**
+   * This handler will be called after any navigation (including when no route
+   * matched).
+   *
+   * @param {RouteHandler} handler
+   * @returns {Router} The router instance for chaining
+   */
+  afterEach(handler) {
+    this.#afterEachHandler = handler;
+    return this;
+  }
+
+  /**
    * Parses the URL to a route and runs handler associated with the route.
    *
    * @param {string} [url] The new URL. Defaults to `location.hash`.
@@ -183,5 +198,6 @@ export default class Router {
     const resolved = { url, params: params ?? {}, route };
 
     (handler ?? this.#fallbackHandler)?.(resolved);
+    this.#afterEachHandler?.(resolved);
   }
 }

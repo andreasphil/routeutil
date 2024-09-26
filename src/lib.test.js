@@ -152,7 +152,7 @@ describe("Router", () => {
   test("calls the fallback when the route doesn't exist", () => {
     const handler = mock.fn();
     new Router({ startAt: "#/foo" })
-      .on("#/foo", () => {})
+      .on("#/foo", mock.fn())
       .fallback(handler)
       .connect();
 
@@ -165,7 +165,7 @@ describe("Router", () => {
   test("route is undefined in the fallback handler", () => {
     const handler = mock.fn();
     new Router({ startAt: "#/foo" })
-      .on("#/foo", () => {})
+      .on("#/foo", mock.fn())
       .fallback(handler)
       .connect();
 
@@ -174,6 +174,57 @@ describe("Router", () => {
     assert.equal(handler.mock.callCount(), 1);
     const { arguments: args } = handler.mock.calls[0];
     assert(!args[0].route);
+  });
+
+  test("calls the after each handler initially", () => {
+    const handler = mock.fn();
+    new Router({ startAt: "#/foo" })
+      .on("#/foo", mock.fn())
+      .afterEach(handler)
+      .connect();
+
+    tick();
+
+    assert.equal(handler.mock.callCount(), 1);
+  });
+
+  test("calls the after each handler when a route matched", () => {
+    const handler = mock.fn();
+    const fooRoute = route`#/foo/${param("bar")}`;
+    new Router().on(fooRoute, mock.fn()).afterEach(handler).connect();
+
+    navigate("#/foo/0");
+
+    assert.equal(handler.mock.callCount(), 2);
+    assert.deepEqual(handler.mock.calls[0].arguments[0], {
+      url: "",
+      params: {},
+      route: undefined,
+    });
+    assert.deepEqual(handler.mock.calls[1].arguments[0], {
+      url: "#/foo/0",
+      params: { bar: "0" },
+      route: fooRoute,
+    });
+  });
+
+  test("calls the after each handler when no route matched", () => {
+    const handler = mock.fn();
+    new Router().on("#/foo/", mock.fn()).afterEach(handler).connect();
+
+    navigate("#/bar");
+
+    assert.equal(handler.mock.callCount(), 2);
+    assert.deepEqual(handler.mock.calls[0].arguments[0], {
+      url: "",
+      params: {},
+      route: undefined,
+    });
+    assert.deepEqual(handler.mock.calls[1].arguments[0], {
+      url: "#/bar",
+      params: {},
+      route: undefined,
+    });
   });
 
   describe("integration", () => {

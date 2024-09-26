@@ -55,6 +55,13 @@ router.fallback(() => {
   console.log("@ 404");
 });
 
+// Register an afterEach handler to perform something whenever the router
+// runs. This includes when no route matches. In this case, `route` and `params`
+// will be empty.
+router.afterEach((resolved) => {
+  console.log(`completed navigation to ${resolved.url}`);
+});
+
 // Tell the router it's ready to wire up event handling and perform initial
 // routing. You can still add more routes later.
 router.connect();
@@ -78,7 +85,7 @@ const router = new Router({ startAt: "#/home" })
 
 ### Navigating
 
-Route Util builds on the [`popstate` event](https://developer.mozilla.org/en-US/docs/Web/API/Window/popstate_event) and [`location.hash`](https://developer.mozilla.org/en-US/docs/Web/API/Location/hash). While it doesn't provide any functionality for navigation of its own, you can use all of the browsers' standard methods for getting around. For example:
+Route Util builds on the [`popstate` event](https://developer.mozilla.org/en-US/docs/Web/API/Window/popstate_event) and [`location.hash`](https://developer.mozilla.org/en-US/docs/Web/API/Location/hash). While it doesn't provide any functionality for navigation of its own, you can use all of the browser's standard methods for getting around. For example:
 
 Links:
 
@@ -90,6 +97,12 @@ Programmatically setting the route via `location.hash`:
 
 ```js
 location.hash = "#/users/1";
+```
+
+Replacing:
+
+```js
+location.replace("#/users/1");
 ```
 
 Navigating back and forward:
