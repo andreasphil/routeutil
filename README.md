@@ -118,7 +118,7 @@ See [lib.d.ts](./dist/lib.d.ts) for all available methods and docs.
 
 ## Development
 
-This library is built with [esbuild](https://esbuild.github.io). Packages are managed by [pnpm](https://pnpm.io). Tests are powered by [Node.js' test runner](https://nodejs.org/en/learn/test-runner/). The following commands are available:
+This library is built with [esbuild](https://esbuild.github.io). Packages are managed by [pnpm](https://pnpm.io). Tests are powered by [Node.js' test runner](https://nodejs.org/en/learn/test-runner/introduction). The following commands are available:
 
 ```sh
 pnpm test         # Run tests once
