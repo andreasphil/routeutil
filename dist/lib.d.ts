@@ -33,6 +33,11 @@ export default class Router {
      */
     connect(): Router;
     /**
+     * Stops route handling. Note that it cannot be restarted, you will need to
+     * create a new router if you need it again.
+     */
+    disconnect(): void;
+    /**
      * Adds a new route handler. If an identical handler already exists, the
      * existing handler is replaced.
      *
