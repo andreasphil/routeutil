@@ -81,6 +81,10 @@ const router = new Router({ startAt: "#/home" })
   .on(homeRoute, () => {})
   .on(userDetailRoute, ({ params }) => {})
   .connect();
+
+// Use `disconnect` to stop the router. You'll need to create a new one in
+// case you need it again.
+router.disconnect();
 ```
 
 ### Navigating

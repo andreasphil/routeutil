@@ -99,6 +99,8 @@ export default class Router {
   /** @type {string | undefined} */
   #startAt = undefined;
 
+  #controller = new AbortController();
+
   /**
    * @param {object} [opts]
    * @param {string} [opts.startAt] If set, the router will initially navigate
@@ -115,14 +117,26 @@ export default class Router {
    * @returns {Router} The router instance for chaining
    */
   connect() {
-    addEventListener("popstate", () => {
-      this.#exec();
-    });
+    addEventListener(
+      "popstate",
+      () => {
+        this.#exec();
+      },
+      { signal: this.#controller.signal }
+    );
 
     if (this.#startAt && !location.hash) location.hash = this.#startAt;
     else this.#exec();
 
     return this;
+  }
+
+  /**
+   * Stops route handling. Note that it cannot be restarted, you will need to
+   * create a new router if you need it again.
+   */
+  disconnect() {
+    this.#controller.abort();
   }
 
   /**

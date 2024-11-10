@@ -26,6 +26,7 @@ describe("Router", () => {
 
     globalThis.location = window.location;
     globalThis.addEventListener = window.addEventListener;
+    globalThis.AbortController = window.AbortController;
   });
 
   afterEach(() => {
@@ -225,6 +226,22 @@ describe("Router", () => {
       params: {},
       route: undefined,
     });
+  });
+
+  test("disconnects", () => {
+    const fooHandler = mock.fn();
+    const barHandler = mock.fn();
+    const router = new Router({ startAt: "#/foo" })
+      .on("#/foo", fooHandler)
+      .on("#/bar", barHandler)
+      .connect();
+
+    navigate("#/foo");
+    assert.equal(fooHandler.mock.callCount(), 1);
+
+    router.disconnect();
+    navigate("#/bar");
+    assert.equal(barHandler.mock.callCount(), 0);
   });
 
   describe("integration", () => {
