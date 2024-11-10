@@ -65,6 +65,10 @@ router.afterEach((resolved) => {
 // Tell the router it's ready to wire up event handling and perform initial
 // routing. You can still add more routes later.
 router.connect();
+
+// Use `disconnect` to stop the router. You'll need to create a new one in
+// case you need it again.
+router.disconnect();
 ```
 
 ### Route helper
@@ -81,10 +85,6 @@ const router = new Router({ startAt: "#/home" })
   .on(homeRoute, () => {})
   .on(userDetailRoute, ({ params }) => {})
   .connect();
-
-// Use `disconnect` to stop the router. You'll need to create a new one in
-// case you need it again.
-router.disconnect();
 ```
 
 ### Navigating
