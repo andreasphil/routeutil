@@ -50,6 +50,13 @@ router.on(/^#\/users\/(?<id>\w+)$/, ({ params }) => {
   console.log("@ users", params.id);
 });
 
+// If you have multiple routes that are handled in a generic way (e.g. if
+// you just sync with some outside state), you can register multiple routes
+// with the same handler.
+router.on(["#/foo", "#/bar"], ({ route }) => {
+  console.log(`@ ${route}`);
+});
+
 // The fallback will be called if no registered route matches.
 router.fallback(() => {
   console.log("@ 404");

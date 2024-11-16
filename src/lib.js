@@ -143,23 +143,25 @@ export default class Router {
    * Adds a new route handler. If an identical handler already exists, the
    * existing handler is replaced.
    *
-   * @param {RouteDef} route Path of the route
+   * @param {RouteDef | RouteDef[]} route Path of the route
    * @param {RouteHandler} handler Function to be called when the route is matched
    * @returns {Router} The router instance for chaining
    */
   on(route, handler) {
-    this.#handlers.set(route, handler);
+    const routeArr = Array.isArray(route) ? route : [route];
+    routeArr.forEach((i) => this.#handlers.set(i, handler));
     return this;
   }
 
   /**
    * Removes an existing route handler.
    *
-   * @param {RouteDef} route
+   * @param {RouteDef | RouteDef[]} route
    * @returns {Router} The router instance for chaining
    */
   off(route) {
-    this.#handlers.delete(route);
+    const routeArr = Array.isArray(route) ? route : [route];
+    routeArr.forEach((i) => this.#handlers.delete(i));
     return this;
   }
 

@@ -48,12 +48,31 @@ describe("Router", () => {
   });
 
   test("calls the handler for a regex route", () => {
-    const hundler = mock.fn();
-    new Router().on(/^#\/foo$/, hundler).connect();
+    const handler = mock.fn();
+    new Router().on(/^#\/foo$/, handler).connect();
 
     navigate("#/foo");
 
-    assert.equal(hundler.mock.callCount(), 1);
+    assert.equal(handler.mock.callCount(), 1);
+  });
+
+  test("calls the handler for multiple routes", () => {
+    const handler = mock.fn();
+    new Router().on(["#/foo", "#/bar"], handler).connect();
+
+    navigate("#/foo");
+    navigate("#/bar");
+
+    assert.deepEqual(handler.mock.calls[0].arguments[0], {
+      url: "#/foo",
+      params: {},
+      route: "#/foo",
+    });
+    assert.deepEqual(handler.mock.calls[1].arguments[0], {
+      url: "#/bar",
+      params: {},
+      route: "#/bar",
+    });
   });
 
   test("provides the parameters to the handler", () => {
