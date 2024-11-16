@@ -247,6 +247,39 @@ describe("Router", () => {
     });
   });
 
+  test("stops handling a route", () => {
+    const fooHandler = mock.fn();
+    const router = new Router({ startAt: "#/foo" })
+      .on("#/foo", fooHandler)
+      .on("#/bar", mock.fn())
+      .connect();
+
+    navigate("#/foo");
+    assert.equal(fooHandler.mock.callCount(), 1);
+
+    navigate("#/bar");
+
+    router.off("#/foo");
+    navigate("#/foo");
+    assert.equal(fooHandler.mock.callCount(), 1);
+  });
+
+  test("stops handling multiple routes", () => {
+    const handler = mock.fn();
+    const router = new Router().on(["#/foo", "#/bar"], handler).connect();
+
+    navigate("#/foo");
+    assert.equal(handler.mock.callCount(), 1);
+
+    navigate("#/bar");
+    assert.equal(handler.mock.callCount(), 2);
+
+    router.off(["#/foo", "#/bar"]);
+    navigate("#/foo");
+    navigate("#/bar");
+    assert.equal(handler.mock.callCount(), 2);
+  });
+
   test("disconnects", () => {
     const fooHandler = mock.fn();
     const barHandler = mock.fn();
