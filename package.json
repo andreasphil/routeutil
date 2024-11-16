@@ -1,6 +1,6 @@
 {
   "name": "@andreasphil/routeutil",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Bare minimum client-side router",
   "author": "Andreas Philippi",
   "license": "MIT",

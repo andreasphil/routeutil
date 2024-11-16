@@ -41,18 +41,18 @@ export default class Router {
      * Adds a new route handler. If an identical handler already exists, the
      * existing handler is replaced.
      *
-     * @param {RouteDef} route Path of the route
+     * @param {RouteDef | RouteDef[]} route Path of the route
      * @param {RouteHandler} handler Function to be called when the route is matched
      * @returns {Router} The router instance for chaining
      */
-    on(route: RouteDef, handler: RouteHandler): Router;
+    on(route: RouteDef | RouteDef[], handler: RouteHandler): Router;
     /**
      * Removes an existing route handler.
      *
-     * @param {RouteDef} route
+     * @param {RouteDef | RouteDef[]} route
      * @returns {Router} The router instance for chaining
      */
-    off(route: RouteDef): Router;
+    off(route: RouteDef | RouteDef[]): Router;
     /**
      * This handler will be called if no route matches.
      *
