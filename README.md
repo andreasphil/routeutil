@@ -6,9 +6,6 @@
   <strong>Bare minimum client side router</strong>
 </p>
 
-> ⚠️ Work in progress. Things are most certainly incomplete and/or broken, and
-> will definitely change.
-
 - 🍱 All the essentials for simple, client-side routing: routes, params & fallbacks
 - 🐙 Flexible: use with plain JavaScript or easily integrate with any framework
 - 👌 Fully typed and tested
