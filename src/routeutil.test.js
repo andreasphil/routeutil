@@ -3,7 +3,7 @@
 import { JSDOM } from "jsdom";
 import assert from "node:assert/strict";
 import { afterEach, before, describe, mock, test } from "node:test";
-import Router, { param, route } from "./lib.js";
+import Router, { param, route } from "./routeutil.js";
 
 describe("Router", () => {
   let window;

@@ -11,8 +11,8 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/lib.js",
-      "types": "./dist/lib.d.ts"
+      "import": "./dist/routeutil.js",
+      "types": "./dist/routeutil.d.ts"
     }
   },
   "scripts": {
@@ -20,7 +20,7 @@
     "test:watch": "node --test --experimental-strip-types --watch",
     "build": "pnpm build:types && pnpm build:bundle",
     "build:types": "tsc",
-    "build:bundle": "esbuild src/lib.js --bundle --minify --target=es2023 --format=esm --outdir=dist --sourcemap",
+    "build:bundle": "esbuild src/routeutil.js --bundle --minify --target=es2023 --format=esm --outdir=dist --sourcemap",
     "preversion": "pnpm test && pnpm build; git add dist/"
   },
   "devDependencies": {

@@ -122,7 +122,7 @@ history.forward();
 
 ### API
 
-See [lib.d.ts](./dist/lib.d.ts) for all available methods and docs.
+See [routeutil.d.ts](./dist/routeutil.d.ts) for all available methods and docs.
 
 ## Development
 
