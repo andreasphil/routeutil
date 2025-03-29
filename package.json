@@ -16,6 +16,7 @@
     }
   },
   "scripts": {
+    "dev": "node --run build:bundle -- --watch --servedir=.",
     "test": "node --test --experimental-strip-types",
     "test:watch": "node --test --experimental-strip-types --watch",
     "build": "node --run build:types && node --run build:bundle",

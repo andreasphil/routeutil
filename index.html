@@ -78,7 +78,7 @@
   </body>
 
   <script type="module">
-    import Router from "./src/routeutil.js";
+    import Router from "./dist/routeutil.js";
 
     function render(html) {
       const output = document.querySelector("output");
@@ -102,5 +102,10 @@
         render("Fallback");
       })
       .connect();
+
+    // Automatically reload on change when serving with `node --run dev`
+    new EventSource("/esbuild").addEventListener("change", () =>
+      location.reload()
+    );
   </script>
 </html>
