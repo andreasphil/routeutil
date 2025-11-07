@@ -6,27 +6,21 @@
   "license": "MIT",
   "type": "module",
   "repository": "https://github.com/andreasphil/routeutil",
-  "files": [
-    "dist"
-  ],
   "exports": {
     ".": {
-      "import": "./dist/routeutil.js",
-      "types": "./dist/routeutil.d.ts"
+      "import": "./mod.js",
+      "types": "./dist/mod.d.ts"
     }
   },
   "scripts": {
-    "dev": "node --run build:bundle -- --watch --servedir=.",
     "test": "node --test",
     "test:watch": "node --test --watch",
-    "build": "node --run build:types && node --run build:bundle",
+    "build": "node --run build:types",
     "build:types": "tsc",
-    "build:bundle": "esbuild src/routeutil.js --bundle --format=esm --outdir=dist",
-    "preversion": "node --run test && node --run build; git add dist/",
+    "preversion": "node --run test && node --run build && git add ./dist",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "esbuild": "^0.25.2",
     "jsdom": "^26.0.0",
     "typescript": "^5.8.3"
   }

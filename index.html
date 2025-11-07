@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -90,7 +90,7 @@
   </body>
 
   <script type="module">
-    import Router from "./dist/routeutil.js";
+    import Router from "./mod.js";
 
     function render(html) {
       const output = document.querySelector("output");
@@ -114,10 +114,5 @@
         render("Fallback");
       })
       .connect();
-
-    // Automatically reload on change when serving with `node --run dev`
-    new EventSource("/esbuild").addEventListener("change", () =>
-      location.reload(),
-    );
   </script>
 </html>

@@ -5,13 +5,13 @@
     "checkJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
-    "lib": ["es2024", "DOM"],
+    "lib": ["esnext", "DOM"],
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "outDir": "dist",
     "skipLibCheck": true,
-    "target": "es2024"
+    "target": "esnext"
   },
-  "include": ["src/**/*.js", "src/**/*.ts"],
-  "exclude": ["src/**/*.spec.*", "src/**/*.test.*"]
+  "include": ["**/*.js", "**/*.ts"],
+  "exclude": ["**/*.spec.*", "**/*.test.*", "./dist/**/*"]
 }
